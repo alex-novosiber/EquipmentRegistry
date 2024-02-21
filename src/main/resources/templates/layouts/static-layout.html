@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+
+
+<!--    <p th:fragment="headscripts" th:remove="tag">-->
+        <!-- Favicon -->
+<!--        <link href="img/favicon.png" rel="shortcut icon">-->
+        <!-- css -->
+<!--        <link th:href="@{../css/bootstrap.min-513.css}" rel="stylesheet">-->
+<!--        <link th:href="@{../css/navstyle.css}" rel="stylesheet">-->
+<!--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">-->
+<!--    </p>-->
+
+
+    <!--    <style>#foo {-->
+    <!--        align-items: center;-->
+    <!--        display: flex;-->
+    <!--    }</style>-->
+
+
+</head>
+
+
+<body class="d-flex flex-column min-vh-100">
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light text-centered" th:fragment="navigation">
+    <div class="container-fluid text-centered">
+        <a class="navbar-brand" href="#">
+            <img src="../images/favicon.png" width="30" height="30" alt="">
+        </a>
+        <a class="navbar-brand">Реестр товаров</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo011"
+                aria-controls="navbarTogglerDemo011" aria-expanded="false" aria-label="Toggle_navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse  flex-grow-0 align-self-end" id="navbarTogglerDemo011">
+            <ul class="navbar-nav align-middle ml-auto">
+
+
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonStaff" data-bs-toggle="dropdown" aria-expanded="false">
+                            Товары
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonStaff">
+                            <li><a class="dropdown-item" href="/tv-page">телевизоры</a></li>
+                            <li><a class="dropdown-item" href="/index">инвентарь</a></li>
+
+                        </ul>
+
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                            Локации
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                            <li><a class="dropdown-item" href="/index">все Локации</a></li>
+                            <li><a class="dropdown-item" href="/index">Склады</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Финансы
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="/index">сводная статистика</a></li>
+                            <li><a class="dropdown-item" href="/index">сводная статистика товаров</a></li>
+                        </ul>
+                    </div>
+
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+
+<footer th:fragment="footer-copyright">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(6, 6, 6, 0.2);"> © 2024
+        <a class="text-light"> Реестр товаров 2024</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+
+
+</body>
+
+</html>

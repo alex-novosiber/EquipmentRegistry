@@ -1,0 +1,84 @@
+/*color: rgba(0,0,0,.55);*/
+.navbar-light .navbar-nav .nav-link {
+
+    color: rgb(0, 0, 0) !important;
+    text-align:center;
+
+
+}
+.menu-selected {color: rgba(204, 51, 10, 20);}
+
+.body {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+footer {
+    position: fixed;
+    margin-top: 50px;
+    bottom: 0;width: 100%;"
+}
+.nav-item{
+    margin:auto;
+    text-align: center;
+    vertical-align: middle;
+}
+.nav-item .dropdown{
+    margin:auto;
+    text-align: center;
+    vertical-align: middle;
+}
+
+@media screen and (min-width: 200px) and (max-width: 600px) {
+    h4{
+        font-size: 15px;
+        margin-bottom: 0;
+    }
+    .table-responsive{
+        font-size: 6px;
+    }
+    .table-responsive td,th {
+        font-size: 8px;
+        padding: 1px;
+    }
+}
+@media screen and (min-width: 601px) and (max-width: 800px) {
+    h4{
+        font-size: 16px;
+        margin-bottom: 0;
+    }
+    .table-responsive {
+        font-size: 10px;
+    }
+    .table-responsive td,th {
+        font-size: 10px;
+        padding: 2px;
+    }
+}
+@media screen and (min-width: 801px) and (max-width: 990px) {
+    h4{
+        font-size: 18px;
+        margin-bottom: 0;
+    }
+    .table-responsive {
+        font-size: 12px;
+    }
+    .table-responsive td,th {
+        font-size: 12px;
+        padding: 3px;
+    }
+}
+@media screen and (min-width: 991px) {
+    h4{
+        font-size: 20px;
+        margin-bottom: 0;
+    }
+    .table-responsive {
+        font-size: 15px;
+    }
+    .table-responsive td,th {
+        font-size: 15px;
+        padding: 4px;
+    }
+}
