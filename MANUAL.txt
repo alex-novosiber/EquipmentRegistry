@@ -24,6 +24,7 @@ Frameworks: Spring Boot Starter, Spring Web, Spring JPA, Spring Hibernate;
       (выборка из моделей, которые представлены в виде справочника).
 
 
+
 Сами модели должны иметь ряд атрибутов в зависимости от вида техники:
 
 Телевизоры: наименование, серийный номер, цвет, размер, цена,
@@ -54,3 +55,93 @@ Frameworks: Spring Boot Starter, Spring Web, Spring JPA, Spring Hibernate;
 REST-приложение с Open API v3 документацией в виде страницы swagger.
 Доступ к репозиторию с исходниками приложения.
 README файл с инструкцией для запуска.
+
+
+=========================================
+
+create database registry
+	with owner postgres;
+
+create table computers
+(
+    id             bigint  not null
+        constraint computers_pkey
+            primary key,
+    availability   boolean not null,
+    category       varchar(255),
+    processor_type varchar(255),
+    color          varchar(255),
+    price          numeric(19, 2),
+    serial_number  varchar(255),
+    size           varchar(255),
+    title          varchar(255)
+);
+
+alter table computers
+    owner to postgres;
+
+create table refrigerators
+(
+    id              bigint  not null
+        constraint refrigerators_pkey
+            primary key,
+    availability    boolean not null,
+    compressor_type varchar(255),
+    doors_count     integer,
+    color           varchar(255),
+    price           numeric(19, 2),
+    serial_number   varchar(255),
+    size            varchar(255),
+    title           varchar(255)
+);
+
+alter table refrigerators
+    owner to postgres;
+
+create table smartphones
+(
+    id            bigint  not null
+        constraint smartphones_pkey
+            primary key,
+    availability  boolean not null,
+    cameras_count integer,
+    color         varchar(255),
+    price         numeric(19, 2),
+    serial_number varchar(255),
+    size          varchar(255),
+    title         varchar(255)
+);
+
+alter table smartphones
+    owner to postgres;
+
+create table vacuum_cleaners
+(
+    id                    bigint  not null
+        constraint vacuum_cleaners_pkey
+            primary key,
+    availability          boolean not null,
+    dust_container_volume integer,
+    modes_count           integer
+);
+
+alter table vacuum_cleaners
+    owner to postgres;
+
+create table tv
+(
+    id            bigserial not null
+        constraint tv_pkey
+            primary key,
+    availability  boolean   not null,
+    category      varchar(255),
+    color         varchar(255),
+    price         numeric(19, 2),
+    serial_number varchar(255),
+    size          varchar(255),
+    technology    varchar(255),
+    title         varchar(255)
+);
+
+alter table tv
+    owner to postgres;

@@ -5,10 +5,10 @@ import com.equipmentregistry.application.models.Tv;
 import com.equipmentregistry.application.services.TvService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class StaffController {
@@ -40,6 +40,20 @@ public class StaffController {
         }else {
             return "not-saved";
         }
+    }
+
+    @GetMapping(value="/getbyid/{id}") //   /getbyid/1
+    @ResponseBody
+    public Optional<Tv> getEntityById(@PathVariable("id") Long id) {
+        System.out.println("getEntityById [" + id + "]");
+        return tvService.findById(id);
+    }
+
+    @GetMapping("/registry")
+    public String registry(Model model) {
+        List<Tv> tvList = tvService.findAllTv();
+        model.addAttribute("tvList", tvList);
+        return "registry";
     }
 
 }

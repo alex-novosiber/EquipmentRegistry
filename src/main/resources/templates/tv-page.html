@@ -29,10 +29,6 @@
         <div class="col">
             <h4> Перечень товаров </h4>
         </div>
-<!--        <div class="col">-->
-<!--            <a class="btn btn-success m-2" href="#" th:href="@{/federal/addnewstaff}">-->
-<!--                <i class="bi bi-person-plus-fill"></i> Добавить новый товар </a>-->
-<!--        </div>-->
         <div class="col">
             <a href="/add-tv" id="add-tv" class="btn btn-success m-2">добавить телевизор</a>
         </div>
@@ -87,7 +83,6 @@
 
 <script>
     $(document).ready(function () {
-
         $('#readytable tbody tr td').each(function(){
             if($(this).text() === 'false'){
                 $(this).text('нет')}
@@ -95,10 +90,7 @@
                 // $(this).css('background-color','green');
                 $(this).text('есть')}
         });
-
     });
-
-
 </script>
 </body>
 <div th:insert="~{layouts/static-layout :: footer-copyright}"></div>

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "tv")
-public class Tv {
+public class Tv extends StaffEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

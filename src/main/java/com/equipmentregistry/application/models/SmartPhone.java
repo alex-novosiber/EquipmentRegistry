@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @javax.persistence.Entity
 @Table(name = "smartphones")
-public class SmartPhone extends Entity {
+public class SmartPhone extends StaffEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

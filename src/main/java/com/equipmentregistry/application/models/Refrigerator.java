@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 @javax.persistence.Entity
 @Table(name = "refrigerators")
-public class Refrigerator extends Entity {
+public class Refrigerator extends StaffEntity {
     @Id
     private Long id;
     private String title;

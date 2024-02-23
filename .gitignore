@@ -1,4 +1,6 @@
 HELP.md
+app.log
+MANUAL.txt
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
