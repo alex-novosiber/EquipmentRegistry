@@ -29,7 +29,7 @@ Frameworks:
 - https://disk.yandex.ru/d/8jn0BxD9VPEang
 ### *и ссылка на дамп БД (создан с помощью pg_dump.exe от Postgres)*
 - https://disk.yandex.ru/d/VsPa8-pi7_tY7g
-  имя базы данных - registry
-  имя пользователя БД - postgres
-  пароль - rootpass  
-  (это если не нашли креды в application.properties)
+ -  имя базы данных - registry  
+  - имя пользователя БД - postgres  
+  - пароль - rootpass   
+  (это если не нашли креды в application.properties) 
