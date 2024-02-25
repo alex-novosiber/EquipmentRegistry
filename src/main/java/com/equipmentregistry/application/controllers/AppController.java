@@ -37,10 +37,10 @@ public class AppController {
         return "index";
     }
 
-    @GetMapping("/index")
-    public String viewLoginPage() {
-        return "index";
-    }
+//    @GetMapping("/index")
+//    public String viewIndexPage() {
+//        return "index.html";
+//    }
 
 
 

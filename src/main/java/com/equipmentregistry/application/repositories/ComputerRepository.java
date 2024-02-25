@@ -10,4 +10,9 @@ import java.util.List;
 public interface ComputerRepository extends JpaRepository<Computer, Long> {
 
     List<Computer> findAll();
+
+    List<Computer> findAllByTitleContainsIgnoreCaseAndAvailabilityIsTrue(String title);
+
+    List<Computer> findAllByAvailabilityIsTrue();
+
 }

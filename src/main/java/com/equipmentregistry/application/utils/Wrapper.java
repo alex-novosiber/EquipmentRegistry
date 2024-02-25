@@ -1,60 +1,26 @@
-package com.equipmentregistry.application.models;
+package com.equipmentregistry.application.utils;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.util.NumberUtils;
+
 import java.math.BigDecimal;
+import java.util.Map;
 
-@javax.persistence.Entity
-@Table(name = "smartphones")
-public class SmartPhone extends StaffEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    /**
-     * Наименование товара
-     */
+public class Wrapper {
     private String title;
     private String countryOfManufacturer;
     private String manufacturer;
     private boolean onlineOrderingPossibility;
     private boolean  installmentPlanPossibility;
-    /**
-     * Серийный номер
-     */
     private String serialNumber;
-    /**
-     * Цвет
-     */
     private String color;
-    /**
-     * Размер
-     */
     private String size;
-    /**
-     * Цена
-     */
     private BigDecimal price;
-    /**
-     * Кол-во камер
-     */
-    private Integer camerasCount;
-    /**
-     * Объём памяти
-     */
-    private Integer memorySize;
-    /**
-     * доступность для заказа
-     */
     private boolean availability;
 
-    public SmartPhone() {}
+    public Wrapper() {
+    }
 
-    public SmartPhone(String title, String countryOfManufacturer, String manufacturer, boolean onlineOrderingPossibility,
-                      boolean installmentPlanPossibility, String serialNumber, String color, String size, BigDecimal price,
-                      Integer camerasCount, Integer memorySize, boolean availability) {
+    public Wrapper(String title, String countryOfManufacturer, String manufacturer, boolean onlineOrderingPossibility, boolean installmentPlanPossibility, String serialNumber, String color, String size, BigDecimal price, boolean availability) {
         this.title = title;
         this.countryOfManufacturer = countryOfManufacturer;
         this.manufacturer = manufacturer;
@@ -64,65 +30,45 @@ public class SmartPhone extends StaffEntity {
         this.color = color;
         this.size = size;
         this.price = price;
-        this.camerasCount = camerasCount;
-        this.memorySize = memorySize;
         this.availability = availability;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
     public String getTitle() {
         return title;
     }
 
-    @Override
     public void setTitle(String title) {
         this.title = title;
     }
 
-    @Override
     public String getCountryOfManufacturer() {
         return countryOfManufacturer;
     }
 
-    @Override
     public void setCountryOfManufacturer(String countryOfManufacturer) {
         this.countryOfManufacturer = countryOfManufacturer;
     }
 
-    @Override
     public String getManufacturer() {
         return manufacturer;
     }
 
-    @Override
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
     }
 
-    @Override
     public boolean isOnlineOrderingPossibility() {
         return onlineOrderingPossibility;
     }
 
-    @Override
     public void setOnlineOrderingPossibility(boolean onlineOrderingPossibility) {
         this.onlineOrderingPossibility = onlineOrderingPossibility;
     }
 
-    @Override
     public boolean isInstallmentPlanPossibility() {
         return installmentPlanPossibility;
     }
 
-    @Override
     public void setInstallmentPlanPossibility(boolean installmentPlanPossibility) {
         this.installmentPlanPossibility = installmentPlanPossibility;
     }
@@ -159,27 +105,57 @@ public class SmartPhone extends StaffEntity {
         this.price = price;
     }
 
-    public Integer getCamerasCount() {
-        return camerasCount;
-    }
-
-    public void setCamerasCount(Integer camerasCount) {
-        this.camerasCount = camerasCount;
-    }
-
-    public Integer getMemorySize() {
-        return memorySize;
-    }
-
-    public void setMemorySize(Integer memorySize) {
-        this.memorySize = memorySize;
-    }
-
     public boolean isAvailability() {
         return availability;
     }
 
     public void setAvailability(boolean availability) {
         this.availability = availability;
+    }
+
+    public static String checkAllWrapperFields(Map<String, String> map){
+        String response = "ok";
+        if(map.get("title") == null || map.get("title").isEmpty()){
+            return  "error in title field";
+        }
+        if(map.get("countryOfManufacturer") == null || map.get("countryOfManufacturer").isEmpty()){
+            return  "error in countryOfManufacturer field";
+        }
+        if(map.get("manufacturer") == null || map.get("manufacturer").isEmpty()){
+            return  "error in manufacturer field";
+        }
+        if(map.get("onlineOrderingPossibility") == null || map.get("onlineOrderingPossibility").isEmpty() ||
+                (!map.get("onlineOrderingPossibility").equals("true") && !map.get("onlineOrderingPossibility").equals("false"))){
+            return  "error in onlineOrderingPossibility field";
+        }
+        if(map.get("installmentPlanPossibility") == null || map.get("installmentPlanPossibility").isEmpty() ||
+        (!map.get("installmentPlanPossibility").equals("true") && !map.get("installmentPlanPossibility").equals("false"))){
+            return  "error in installmentPlanPossibility field";
+        }
+        if(map.get("serialNumber") == null || map.get("serialNumber").isEmpty()){
+            return  "error in serialNumber field";
+        }
+        if(map.get("color") == null || map.get("color").isEmpty()){
+            return  "error in color field";
+        }
+        if(map.get("size") == null || map.get("size").isEmpty()){
+            return  "error in size field";
+        }
+
+        BigDecimal price = new BigDecimal("0.0");
+        if(map.get("price") != null && !map.get("price").isEmpty()){
+            try{
+                price = NumberUtils.parseNumber(map.get("price"), BigDecimal.class);
+            }catch (NumberFormatException e){
+                return "NumberFormatException in price field";
+            }
+        }else{
+            return  "absent price field";
+        }
+        if(map.get("availability") == null || map.get("availability").isEmpty() ||
+        (!map.get("availability").equals("true") && !map.get("availability").equals("false"))){
+            return  "error in availability field";
+        }
+        return response;
     }
 }

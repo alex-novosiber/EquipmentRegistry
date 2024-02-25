@@ -7,7 +7,10 @@ import java.util.List;
 
 public class StaffEntity {
 
-
+    /**
+     * Наименование товара
+     */
+    private String title;
     /**
      * Страна производитель
      */
@@ -28,8 +31,28 @@ public class StaffEntity {
      */
     @JsonProperty("installmentPlanPossibility")
     private boolean  installmentPlanPossibility;
+
     @JsonProperty("entities")
     private List<? extends StaffEntity> entities;
+
+    public StaffEntity() {}
+
+    public StaffEntity(String title, String countryOfManufacturer, String manufacturer, boolean onlineOrderingPossibility,
+                       boolean installmentPlanPossibility) {
+        this.title = title;
+        this.countryOfManufacturer = countryOfManufacturer;
+        this.manufacturer = manufacturer;
+        this.onlineOrderingPossibility = onlineOrderingPossibility;
+        this.installmentPlanPossibility = installmentPlanPossibility;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getCountryOfManufacturer() {
         return countryOfManufacturer;

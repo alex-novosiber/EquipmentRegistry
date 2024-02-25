@@ -1,0 +1,1351 @@
+openapi: 3.0.0
+info:
+  title: |
+    API магазина бытовой техники
+  description: |
+    *после сборки WAR файла переименуйте его например в 'demo.war',*
+    *и поместите в папку '/webapps/' сервера Tomcat
+    ( например .../Tomcat-9/webapps/ )*
+    *доступ к приложению запущенному на сервере Tomcat*
+    осуществлять по адресу
+    ```
+    http://localhost/demo/api/v1/...
+
+    ```
+    для доступа к документации при запуске приложения
+    в IDE используйте адрес
+    ```
+    http://localhost:8080/openapi/swagger-ui/index.html
+    ```
+
+  version: "1.0"
+servers:
+  - url: "http://localhost:8080/api/v1"
+  - url: "https://localhost:8080/api/v1"
+paths:
+
+  /computer/findPcByTitle/:
+    get:
+      summary: "регистронезависимый поиск по части названия или вывод всех компьютеров при пустом поле title"
+      operationId: "findPcByTitle"
+      tags:
+        - pc (компьютеры)
+      parameters:
+        - name: "title"
+          in: query
+          schema: {}
+          required: false
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: 'title of '
+                  countryOfManufacturer:
+                    type: string
+                    description: 'Страна производитель'
+                  manufacturer:
+                    type: string
+                    description: 'фирма производитель'
+                  onlineOrderingPossibility:
+                    type: boolean
+                    description: 'Возможность онлайн заказа'
+                  installmentPlanPossibility:
+                    type: boolean
+                    description: 'Возможность оформления рассрочки'
+                  entities:
+                    type: array
+                    description: 'список доступных моделей'
+                    items:
+                      $ref: '#/components/schemas/Computer'
+
+
+
+        4XX:
+          description: 'other errors'
+
+  /computer/findPcByTitleAndParameters:
+    get:
+      summary: "поиск по введённым параметрам, все поля не обязательны. При пустом вводе поиск всех моделей в наличии"
+      operationId: "findPcByTitleAndParameters"
+      tags:
+        - pc (компьютеры)
+      parameters:
+        - name: "title"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "countryOfManufacturer"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "manufacturer"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "onlineOrderingPossibility"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "installmentPlanPossibility"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "serialNumber"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "color"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "size"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "price"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "number"
+        - name: "category"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "processorType"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "availability"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: 'title of '
+                  countryOfManufacturer:
+                    type: string
+                    description: 'Страна производитель'
+                  manufacturer:
+                    type: string
+                    description: 'фирма производитель'
+                  onlineOrderingPossibility:
+                    type: boolean
+                    description: 'Возможность онлайн заказа'
+                  installmentPlanPossibility:
+                    type: boolean
+                    description: 'Возможность оформления рассрочки'
+                  entities:
+                    type: array
+                    description: 'список доступных моделей'
+                    items:
+                      $ref: '#/components/schemas/Computer'
+
+
+
+        4XX:
+          description: 'other errors'
+
+  /computer/savenewcomputer:
+    post:
+      summary: "Добавление нового товара в БД."
+      description: |
+        ## Создание нового товара и добавление его в БД.
+        ### **Все поля обязательны для заполнения**
+      operationId: "saveNewComputer"
+      tags:
+        - pc (компьютеры)
+      parameters:
+        - name: "title"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "countryOfManufacturer"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "manufacturer"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "onlineOrderingPossibility"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "installmentPlanPossibility"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "serialNumber"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "color"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "size"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "price"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+        - name: "category"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "processorType"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "availability"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "success saving response"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: success
+        400:
+          description: "error on saving stage"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "numberformatexception in price field | \nError, check input parameters"
+
+
+
+
+
+  /refrigerator/findRefrigeratorByTitle:
+    get:
+      summary: "регистронезависимый поиск по части названия или вывод всех холодильников при пустом поле title"
+      operationId: "findRefrigeratorByTitle"
+      tags:
+        - refrigerator (холодильники)
+      parameters:
+        - name: "title"
+          in: query
+          schema: {}
+          required: false
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Refrigerator"
+        4XX:
+          description: 'other errors'
+
+
+  /refrigerator/findRefrigeratorByTitleAndParameters:
+    get:
+      summary: "поиск по введённым параметрам, все поля не обязательны. При пустом вводе поиск всех моделей в наличии"
+      operationId: "findRefrigeratorByTitleAndParameters"
+      tags:
+        - refrigerator (холодильники)
+      parameters:
+        - name: "title"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "countryOfManufacturer"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "manufacturer"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "onlineOrderingPossibility"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "installmentPlanPossibility"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "serialNumber"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "color"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "size"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "price"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "number"
+        - name: "doorsCount"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "integer"
+        - name: "compressorType"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "availability"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: 'title of '
+                  countryOfManufacturer:
+                    type: string
+                    description: 'Страна производитель'
+                  manufacturer:
+                    type: string
+                    description: 'фирма производитель'
+                  onlineOrderingPossibility:
+                    type: boolean
+                    description: 'Возможность онлайн заказа'
+                  installmentPlanPossibility:
+                    type: boolean
+                    description: 'Возможность оформления рассрочки'
+                  entities:
+                    type: array
+                    description: 'список доступных моделей'
+                    items:
+                      $ref: '#/components/schemas/Refrigerator'
+
+
+
+        4XX:
+          description: 'other errors'
+
+  /refrigerator/saveewrefrigerator:
+    post:
+      summary: "Добавление нового товара в БД."
+      description: |
+        ## Создание нового товара и добавление его в БД.
+        ### **Все поля обязательны для заполнения**
+      operationId: "saveNewRefrigerator"
+      tags:
+        - refrigerator (холодильники)
+      parameters:
+        - name: "title"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "countryOfManufacturer"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "manufacturer"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "onlineOrderingPossibility"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "installmentPlanPossibility"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "serialNumber"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "color"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "size"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "price"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+        - name: "doorsCount"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "compressorType"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "availability"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "success saving response"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: success
+        400:
+          description: "error on saving stage"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "numberformatexception in price field | \nError, check input parameters"
+
+
+
+  /smartphone/findSmartPhoneByTitle:
+    get:
+      summary: "регистронезависимый поиск по части названия или вывод всех моделей смартфонов при пустом поле title"
+      operationId: "findSmartPhoneByTitle"
+      tags:
+        - smartphone (смартфоны)
+      parameters:
+        - name: "title"
+          in: query
+          schema: {}
+          required: false
+      responses:
+        200:
+          description: "OK"
+  /smartphone/findSmartPhoneByTitleAndParameters:
+    get:
+      summary: "поиск по введённым параметрам, все поля не обязательны. При пустом вводе поиск всех моделей в наличии"
+      operationId: "findSmartPhoneByTitleAndParameters"
+      tags:
+        - smartphone (смартфоны)
+      parameters:
+        - name: "title"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "countryOfManufacturer"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "manufacturer"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "onlineOrderingPossibility"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "installmentPlanPossibility"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "serialNumber"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "color"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "size"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "price"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "number"
+        - name: "doorsCount"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "integer"
+        - name: "compressorType"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "availability"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: 'title of '
+                  countryOfManufacturer:
+                    type: string
+                    description: 'Страна производитель'
+                  manufacturer:
+                    type: string
+                    description: 'фирма производитель'
+                  onlineOrderingPossibility:
+                    type: boolean
+                    description: 'Возможность онлайн заказа'
+                  installmentPlanPossibility:
+                    type: boolean
+                    description: 'Возможность оформления рассрочки'
+                  entities:
+                    type: array
+                    description: 'список доступных моделей'
+                    items:
+                      $ref: '#/components/schemas/SmartPhone'
+        4XX:
+          description: 'other errors'
+
+  /smartphone/saveewsmartphone:
+    post:
+      summary: "Добавление нового товара в БД."
+      description: |
+        ## Создание нового товара и добавление его в БД.
+        ### **Все поля обязательны для заполнения**
+      operationId: "saveNewSmartphone"
+      tags:
+        - smartphone (смартфоны)
+      parameters:
+        - name: "title"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "countryOfManufacturer"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "manufacturer"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "onlineOrderingPossibility"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "installmentPlanPossibility"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "serialNumber"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "color"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "size"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "price"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+        - name: "camerasCount"
+          in: "query"
+          required: true
+          schema:
+            type: "integer"
+        - name: "memorySize"
+          in: "query"
+          required: true
+          schema:
+            type: "integer"
+        - name: "availability"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "success saving response"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: success
+        400:
+          description: "error on saving stage"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "numberformatexception in price field || Error, check input parameters"
+
+
+
+  /tv/findTvByTitle:
+    get:
+      summary: "регистронезависимый поиск по части названия или вывод всех моделей тв при пустом поле title"
+      operationId: "findTvByTitle"
+      tags:
+        - tv (телевизоры)
+      parameters:
+        - name: "title"
+          in: query
+          schema: {}
+          required: false
+      responses:
+        200:
+          description: "OK"
+  /tv/findTvByTitleAndParameters:
+    get:
+      summary: "поиск по введённым параметрам, все поля не обязательны. При пустом вводе поиск всех моделей в наличии"
+      operationId: "findTvByTitleAndParameters"
+      tags:
+        - tv (телевизоры)
+      parameters:
+        - name: 'title'
+          in: query
+          schema:
+            type: string
+          required: false
+        - name: 'color'
+          in: query
+          schema:
+            type: string
+          required: false
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: 'title of '
+                  countryOfManufacturer:
+                    type: string
+                    description: 'Страна производитель'
+                  manufacturer:
+                    type: string
+                    description: 'фирма производитель'
+                  onlineOrderingPossibility:
+                    type: boolean
+                    description: 'Возможность онлайн заказа'
+                  installmentPlanPossibility:
+                    type: boolean
+                    description: 'Возможность оформления рассрочки'
+                  entities:
+                    type: array
+                    description: 'список доступных моделей'
+                    items:
+                      $ref: '#/components/schemas/Tv'
+        4XX:
+          description: 'other errors'
+
+  /tv/savenewtv:
+    post:
+      summary: "Добавление нового товара в БД."
+      description: |
+        ## Создание нового товара и добавление его в БД.
+        ### **Все поля обязательны для заполнения**
+      operationId: "saveNewTv"
+      tags:
+        - tv (телевизоры)
+      parameters:
+        - name: "title"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "countryOfManufacturer"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "manufacturer"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "onlineOrderingPossibility"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "installmentPlanPossibility"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "serialNumber"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "color"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "size"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "price"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+        - name: "category"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "technology"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "availability"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "success saving response"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: success
+        400:
+          description: "error on saving stage"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "numberformatexception in price field || Error, check input parameters"
+
+
+
+
+
+
+
+  /vacuumcleaner/findVacuumCleanerByTitle:
+    get:
+      summary: "регистронезависимый поиск по части названия или вывод всех моделей пылесосов при пустом поле title"
+      operationId: "findVacuumCleanerByTitle"
+      tags:
+        - vacuumcleaner (пылесосы)
+      parameters:
+        - name: "title"
+          in: query
+          schema: {}
+          required: false
+      responses:
+        200:
+          description: "OK"
+
+
+  /vacuumcleaner/findVacuumCleanerByTitleAndParameters/:
+    get:
+      summary: "поиск по введённым параметрам, все поля не обязательны. При пустом вводе поиск всех моделей в наличии"
+      tags:
+        - vacuumcleaner (пылесосы)
+      operationId: "findVacuumCleanerByTitleAndParameters"
+      parameters:
+        - name: title
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'title of vacuum cleaner'
+          example: 'LG'
+        - name: color
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'color of vacuum cleaner'
+        - name: size
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'size of vacuum cleaner'
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: 'title of '
+                  countryOfManufacturer:
+                    type: string
+                    description: 'Страна производитель'
+                  manufacturer:
+                    type: string
+                    description: 'фирма производитель'
+                  onlineOrderingPossibility:
+                    type: boolean
+                    description: 'Возможность онлайн заказа'
+                  installmentPlanPossibility:
+                    type: boolean
+                    description: 'Возможность оформления рассрочки'
+                  entities:
+                    type: array
+                    description: 'список доступных моделей'
+                    items:
+                      $ref: '#/components/schemas/VacuumCleaner'
+        4XX:
+          description: 'other errors'
+
+  /vacuumcleaner/savenewvacuumcleaner:
+    post:
+      summary: "Добавление нового товара в БД."
+      description: |
+        ## Создание нового товара и добавление его в БД.
+        ### **Все поля обязательны для заполнения**
+      tags:
+        - vacuumcleaner (пылесосы)
+      operationId: "saveNewVacuumCleaner"
+      parameters:
+        - name: "title"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "countryOfManufacturer"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "manufacturer"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "onlineOrderingPossibility"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "installmentPlanPossibility"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "serialNumber"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "color"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "size"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "price"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+        - name: "dustContainerVolume"
+          in: "query"
+          required: true
+          schema:
+            type: "integer"
+        - name: "modesCount"
+          in: "query"
+          required: true
+          schema:
+            type: "integer"
+        - name: "availability"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "success saving response"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: success
+        400:
+          description: "error on saving stage"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "numberformatexception in price field || Error, check input parameters"
+
+
+components:
+  schemas:
+    Refrigerator:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+          description: 'ID в базе данных'
+        title:
+          type: string
+          example: LG Electronics
+          description: 'Название модели'
+        countryOfManufacturer:
+          type: string
+          example: CHINA
+          description: 'Страна производства'
+        manufacturer:
+          type: string
+          example: LG
+          description: 'Фирма производитель'
+        onlineOrderingPossibility:
+          type: boolean
+          example: true
+          description: 'возможность заказа онлайн'
+        installmentPlanPossibility:
+          type: boolean
+          example: true
+          description: 'возможность покупки в рассрочку'
+        serialNumber:
+          type: string
+          example: '123qwe'
+          description: 'серийный номер товара'
+        color:
+          type: string
+          example: 'red | белый'
+          description: 'цвет модели'
+        size:
+          type: string
+          example: '15 | 60x20x30'
+          description: 'размер модели'
+        price:
+          type: number
+          example: '1500 | 1500.99'
+          description: 'стоимость, BigDecimal значение, через точку'
+        doorsCount:
+          type: integer
+          example: '1 | 2'
+          description: 'кол-во дверей холодильника'
+        compressorType:
+          type: string
+          example: 'inverter | piston'
+          description: 'тип компрессора'
+        availability:
+          type: boolean
+          example: 'true | false'
+          description: 'наличие в продаже'
+
+    Computer:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+          description: 'ID в базе данных'
+        title:
+          type: string
+          example: LG Electronics
+          description: 'Название модели'
+        countryOfManufacturer:
+          type: string
+          example: CHINA
+          description: 'Страна производства'
+        manufacturer:
+          type: string
+          example: LG
+          description: 'Фирма производитель'
+        onlineOrderingPossibility:
+          type: boolean
+          example: true
+          description: 'возможность заказа онлайн'
+        installmentPlanPossibility:
+          type: boolean
+          example: true
+          description: 'возможность покупки в рассрочку'
+        serialNumber:
+          type: string
+          example: '123qwe'
+          description: 'серийный номер товара'
+        color:
+          type: string
+          example: 'red | белый'
+          description: 'цвет модели'
+        size:
+          type: string
+          example: '15 | 60x20x30'
+          description: 'размер модели'
+        price:
+          type: number
+          example: '1500 | 1500.99'
+          description: 'стоимость, BigDecimal значение, через точку'
+        category:
+          type: string
+          example: 'pc | notebook'
+          description: 'категория товара'
+        processorType:
+          type: string
+          example: 'INTEL | BAIKAL'
+          description: 'тип центрального процессора'
+        availability:
+          type: boolean
+          example: 'true | false'
+          description: 'наличие в продаже'
+
+
+    SmartPhone:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+          description: 'ID в базе данных'
+        title:
+          type: string
+          example: 'LG SuperPhone 12'
+          description: 'Название модели'
+        countryOfManufacturer:
+          type: string
+          example: CHINA
+          description: 'Страна производства'
+        manufacturer:
+          type: string
+          example: LG
+          description: 'Фирма производитель'
+        onlineOrderingPossibility:
+          type: boolean
+          example: true
+          description: 'возможность заказа онлайн'
+        installmentPlanPossibility:
+          type: boolean
+          example: true
+          description: 'возможность покупки в рассрочку'
+        serialNumber:
+          type: string
+          example: '123qwe'
+          description: 'серийный номер товара'
+        color:
+          type: string
+          example: 'red | белый'
+          description: 'цвет модели'
+        size:
+          type: string
+          example: '15 | 60x20x30'
+          description: 'размер модели'
+        price:
+          type: number
+          example: '1500 | 1500.99'
+          description: 'стоимость, BigDecimal значение, через точку'
+        camerasCount:
+          type: integer
+          example: '2 | 4'
+          description: 'кол-во камер'
+        memorySize:
+          type: integer
+          example: '32 | 64'
+          description: 'размер встроенной памяти'
+        availability:
+          type: boolean
+          example: 'true | false'
+          description: 'наличие в продаже'
+
+
+    Tv:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+          description: 'ID в базе данных'
+        title:
+          type: string
+          example: 'LG vision 1250'
+          description: 'Название модели'
+        countryOfManufacturer:
+          type: string
+          example: CHINA
+          description: 'Страна производства'
+        manufacturer:
+          type: string
+          example: LG
+          description: 'Фирма производитель'
+        onlineOrderingPossibility:
+          type: boolean
+          example: true
+          description: 'возможность заказа онлайн'
+        installmentPlanPossibility:
+          type: boolean
+          example: true
+          description: 'возможность покупки в рассрочку'
+        serialNumber:
+          type: string
+          example: '123qwe'
+          description: 'серийный номер товара'
+        color:
+          type: string
+          example: 'red | белый'
+          description: 'цвет модели'
+        size:
+          type: string
+          example: '20` | 25'
+          description: 'размер модели'
+        price:
+          type: number
+          example: '1500 | 1500.99'
+          description: 'стоимость, BigDecimal значение, через точку'
+        category:
+          type: string
+          example: 'tv'
+          description: 'категория товара'
+        technology:
+          type: string
+          example: 'OLED | QLED'
+          description: 'технология изготовления экрана'
+        availability:
+          type: boolean
+          example: 'true | false'
+          description: 'наличие в продаже'
+
+
+    VacuumCleaner:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+          description: 'ID в базе данных'
+        title:
+          type: string
+          example: 'LG sucker 12568'
+          description: 'Название модели'
+        countryOfManufacturer:
+          type: string
+          example: CHINA
+          description: 'Страна производства'
+        manufacturer:
+          type: string
+          example: LG
+          description: 'Фирма производитель'
+        onlineOrderingPossibility:
+          type: boolean
+          example: true
+          description: 'возможность заказа онлайн'
+        installmentPlanPossibility:
+          type: boolean
+          example: true
+          description: 'возможность покупки в рассрочку'
+        serialNumber:
+          type: string
+          example: '123qwe'
+          description: 'серийный номер товара'
+        color:
+          type: string
+          example: 'red | белый'
+          description: 'цвет модели'
+        size:
+          type: string
+          example: '26x28x60'
+          description: 'размер модели'
+        price:
+          type: number
+          example: '1500 | 1500.99'
+          description: 'стоимость, BigDecimal значение, через точку'
+        dustContainerVolume:
+          type: integer
+          example: '3 | 4'
+          description: 'объём пылесборника в литрах'
+        modesCount:
+          type: integer
+          example: '3'
+          description: 'кол-во режимов работы'
+        availability:
+          type: boolean
+          example: 'true | false'
+          description: 'наличие в продаже'
+
+    StaffEntity:
+      type: object
+      properties:
+        title:
+          type: string
+          example: LG Electronics
+        countryOfManufacturer:
+          type: string
+          example: CHINA
+        manufacturer:
+          type: string
+          example: LG
+        onlineOrderingPossibility:
+          type: boolean
+          example: true
+        installmentPlanPossibility:
+          type: boolean
+          example: true
+        entities:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/StaffEntity'
+                  # - $ref: '#/components/schemas/Computer'
+                  # - $ref: '#/components/schemas/Tv'
+
+    PCArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Computer'
+
+    error:
+      type: object
+      properties:
+        errorCode:
+          description: Код ошибки
+          type: integer
+          format: int32
+          example: 404
+

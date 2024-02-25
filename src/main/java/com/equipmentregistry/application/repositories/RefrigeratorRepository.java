@@ -11,4 +11,8 @@ public interface RefrigeratorRepository  extends JpaRepository<Refrigerator, Lon
 
     List<Refrigerator> findAll();
 
+    List<Refrigerator> findAllByTitleContainsIgnoreCaseAndAvailabilityIsTrue(String title);
+
+    List<Refrigerator> findAllByAvailabilityIsTrue();
+
 }
