@@ -731,16 +731,77 @@ paths:
       tags:
         - tv (телевизоры)
       parameters:
-        - name: 'title'
+        - name: "title"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "countryOfManufacturer"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "manufacturer"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "onlineOrderingPossibility"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "installmentPlanPossibility"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "serialNumber"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "color"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "size"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "price"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "number"
+        - name: 'category'
           in: query
           schema:
             type: string
           required: false
-        - name: 'color'
+        - name: 'technology'
           in: query
           schema:
             type: string
           required: false
+        - name: "availability"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+
       responses:
         200:
           description: "OK"
@@ -887,25 +948,76 @@ paths:
         - vacuumcleaner (пылесосы)
       operationId: "findVacuumCleanerByTitleAndParameters"
       parameters:
-        - name: title
+        - name: "title"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "countryOfManufacturer"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "manufacturer"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "onlineOrderingPossibility"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "installmentPlanPossibility"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "serialNumber"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "color"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "size"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "string"
+        - name: "price"
+          in: "query"
+          required: false
+          allowEmptyValue: true
+          schema:
+            type: "number"
+        - name: 'dustContainerVolume'
           in: query
           schema:
-            type: string
+            type: integer
           required: false
-          description: 'title of vacuum cleaner'
-          example: 'LG'
-        - name: color
+        - name: 'modesCount'
           in: query
           schema:
-            type: string
+            type: integer
           required: false
-          description: 'color of vacuum cleaner'
-        - name: size
-          in: query
+        - name: "availability"
+          in: "query"
+          required: false
+          allowEmptyValue: true
           schema:
-            type: string
-          required: false
-          description: 'size of vacuum cleaner'
+            type: "string"
       responses:
         200:
           description: "OK"
